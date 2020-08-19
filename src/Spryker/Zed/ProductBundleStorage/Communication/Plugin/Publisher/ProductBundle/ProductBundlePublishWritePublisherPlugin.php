@@ -16,11 +16,11 @@ use Spryker\Zed\PublisherExtension\Dependency\Plugin\PublisherPluginInterface;
  * @method \Spryker\Zed\ProductBundleStorage\Business\ProductBundleStorageFacadeInterface getFacade()
  * @method \Spryker\Zed\ProductBundleStorage\Communication\ProductBundleStorageCommunicationFactory getFactory()
  */
-class BundledProductWritePublisherPlugin extends AbstractPlugin implements PublisherPluginInterface
+class ProductBundlePublishWritePublisherPlugin extends AbstractPlugin implements PublisherPluginInterface
 {
     /**
      * {@inheritDoc}
-     * - Publishes product bundle data by create, update and delete product bundle events.
+     * - Publishes product bundle data by publish product bundle event.
      *
      * @api
      *
@@ -31,7 +31,7 @@ class BundledProductWritePublisherPlugin extends AbstractPlugin implements Publi
      */
     public function handleBulk(array $eventTransfers, $eventName): void
     {
-        $this->getFacade()->writeCollectionByProductBundleEvents($eventTransfers);
+        $this->getFacade()->writeCollectionByProductBundlePublishEvents($eventTransfers);
     }
 
     /**
@@ -44,9 +44,7 @@ class BundledProductWritePublisherPlugin extends AbstractPlugin implements Publi
     public function getSubscribedEvents(): array
     {
         return [
-            ProductBundleStorageConfig::ENTITY_SPY_PRODUCT_BUNDLE_CREATE,
-            ProductBundleStorageConfig::ENTITY_SPY_PRODUCT_BUNDLE_UPDATE,
-            ProductBundleStorageConfig::ENTITY_SPY_PRODUCT_BUNDLE_DELETE,
+            ProductBundleStorageConfig::PRODUCT_BUNDLE_PUBLISH,
         ];
     }
 }
